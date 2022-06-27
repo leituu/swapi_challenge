@@ -11,10 +11,12 @@ function sortByKey(array, key) {
     let filteredArray = array.filter((item) => item[key] !== "unknown");
     let unknownArray = array.filter((item) => item[key] === "unknown");
     filteredArray = filteredArray.sort((a, b) => {
-      let x = parseInt(a[key].replace(",", ""));
-      let y = parseInt(b[key].replace(",", ""));
+      // numbers are coming in as strings
+      let x = parseFloat(a[key].replace(",", ""));
+      let y = parseFloat(b[key].replace(",", ""));
       return x < y ? -1 : x > y ? 1 : 0;
     });
+    // send unknown data to the end of the array
     return [...filteredArray, ...unknownArray];
   }
 }
