@@ -1,8 +1,10 @@
 const fetch = require("node-fetch");
 
 async function fetchSwapi() {
+  // used in the for loop for recursive fetching
   let loops;
   let page = 1;
+  // used to store the data from the api
   let results = [];
   const response = await fetch(`https://swapi.dev/api/people?page=${page}`);
   if (response.status === 200) {
@@ -20,10 +22,7 @@ async function fetchSwapi() {
       page++;
     }
   }
-  console.log(results.length);
   return results;
 }
-
-fetchSwapi();
 
 module.exports = fetchSwapi;

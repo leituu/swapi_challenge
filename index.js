@@ -1,12 +1,19 @@
 const express = require("express");
 const fetchSwapi = require("./fetchSwapi");
+const { sortByKey } = require("./utils");
 
 // instantiate express
 const app = express();
 
 app.get("/api/people", async (req, res) => {
-  const swapiData = await fetchSwapi();
-  res.send(swapiData);
+  let swapiData = await fetchSwapi();
+  let sortKey = req.query.sortBy.toLocaleString();
+  if (sortKey === "name" || sortKey === "mass" || sortKey === "height") {
+    let sortedData = sortByKey(swapiData, sortKey);
+    res.send(sortedData);
+  } else {
+    res.send(swapiData);
+  }
 });
 
 app.listen(3000, () => {
