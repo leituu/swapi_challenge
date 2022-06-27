@@ -1,3 +1,5 @@
+const fetchSwapi = require("./fetchSwapi");
+
 function sortByKey(array, key) {
   if (key === "name") {
     return array.sort((a, b) => {
