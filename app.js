@@ -1,15 +1,15 @@
-const express = require("express");
-const fetchSwapi = require("./fetchSwapi");
-const { sortByKey } = require("./utils");
+const express = require('express');
+const fetchSwapi = require('./tools/fetchSwapi');
+const { sortByKey } = require('./tools/utils');
 
 // instantiate express
 const app = express();
 
-app.get("/api/people", async (req, res) => {
-  let swapiData = await fetchSwapi("people");
+app.get('/api/people', async (req, res) => {
+  let swapiData = await fetchSwapi('people');
   if (Object.keys(req.query).length > 0) {
     let sortKey = req.query.sortBy.toLocaleString();
-    if (sortKey === "name" || sortKey === "mass" || sortKey === "height") {
+    if (sortKey === 'name' || sortKey === 'mass' || sortKey === 'height') {
       let sortedData = sortByKey(swapiData, sortKey);
       res.send(sortedData);
     }
@@ -18,11 +18,11 @@ app.get("/api/people", async (req, res) => {
   }
 });
 
-app.get("/api/planets", async (req, res) => {
+app.get('/api/planets', async (req, res) => {
   // fetch people data
-  let peopleData = await fetchSwapi("people");
+  let peopleData = await fetchSwapi('people');
   // fetch planets data
-  let planetsData = await fetchSwapi("planets");
+  let planetsData = await fetchSwapi('planets');
   // iterate over planets data
   for (let i = 0; i < planetsData.length; i++) {
     let planet = planetsData[i];
@@ -39,5 +39,5 @@ app.get("/api/planets", async (req, res) => {
 const port = process.env.PORT || 3000;
 
 app.listen(3000, () => {
-  console.log("Server started on port 3000");
+  console.log('Server started on port 3000');
 });
